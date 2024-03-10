@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media screen and (max-width: 640px) {
+  body {
+    background: #dce8eb;
+  }
+}
+body {
+  background-color: #dce8eb;
+}
+input[type='date']::-webkit-datetime-edit,
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-clear-button {
+  color: #edebeb;
+  position: relative;
+}
+
+input[type='date']::-webkit-datetime-edit-year-field {
+  position: absolute !important;
+  border-left: 1px solid #ede7e7;
+
+  color: #4d4d4d;
+  left: 110px;
+}
+
+input[type='date']::-webkit-datetime-edit-month-field {
+  position: absolute !important;
+  border-left: 1px solid #e8e4e4;
+  padding-left: 0px;
+  color: #4d4d4d;
+  left: 65px;
+}
+
+input[type='date']::-webkit-datetime-edit-day-field {
+  position: absolute !important;
+  color: #4d4d4d;
+  padding: 2px;
+  left: 14px;
+}
+
+@media screen and (max-width: 280px) {
+  input[type='date']::-webkit-datetime-edit,
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-clear-button {
+    color: #edebeb;
+    position: relative;
+  }
+
+  input[type='date']::-webkit-datetime-edit-year-field {
+    position: absolute !important;
+    border-left: 1px solid #ede7e7;
+
+    color: #4d4d4d;
+    left: 180px;
+  }
+
+  input[type='date']::-webkit-datetime-edit-month-field {
+    position: absolute !important;
+    border-left: 1px solid #e8e4e4;
+    padding-left: 0px;
+    color: #4d4d4d;
+    left: 100px;
+  }
+
+  input[type='date']::-webkit-datetime-edit-day-field {
+    position: absolute !important;
+    color: #4d4d4d;
+    padding: 2px;
+    left: 14px;
+  }
+}
