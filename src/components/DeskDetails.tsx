@@ -1,28 +1,27 @@
-import { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import { getDesksById } from "../hooks/useDesks";
-import { useForm } from "react-hook-form";
-import { useBookingPost } from "../hooks/useBooking";
-import ConvertTimeFixDesk from "./ConvertTimeFixDesk";
-import { DetailsDesk } from "../types/type";
-import { useFixdeskRequest } from "../hooks/useFixdestRequests";
-import React from "react";
+import { useEffect, useState } from 'react';
+import Navbar from './Navbar';
+import { getDesksById } from '../hooks/useDesks';
+import { useForm } from 'react-hook-form';
+import { useBookingPost } from '../hooks/useBooking';
+import ConvertTimeFixDesk from './ConvertTimeFixDesk';
+import { DetailsDesk } from '../types/type';
+import { useFixdeskRequest } from '../hooks/useFixdestRequests';
 
 const initialDetailsData: DetailsDesk = {
-  label: "",
-  id: "",
+  label: '',
+  id: '',
   equipment: [],
-  type: "",
+  type: '',
   bookings: [],
 
   office: {
-    name: "",
-    rows: "",
-    columns: "",
+    name: '',
+    rows: '',
+    columns: '',
   },
   fixdesk: {
-    updatedAt: "",
-    id: "",
+    updatedAt: '',
+    id: '',
   },
 };
 
@@ -88,24 +87,24 @@ export default function DeskDetails() {
               <div className="w-[98%]   justify-center items-center mx-auto mb-12 xl:w-[87%] max-[639px]:mt-16 max-[639px]:w-full max-[639px]:mx-auto  max-[250px]:flex max-[250px]:flex-wrap ">
                 <h1 className="w-full mb-6 lg:mt-6  xl:mt-0 h-1 text-3xl font-bold xl:ml-20 lg:ml-20 md:ml-10 sm:ml-10 max-[639px]:font-normal  max-[639px]:pl-5   max-[303px]:text-2xl  max-[250px]:text-xl  text-center">
                   Office {(detailDesk as DetailsDesk).office.name}
-                </h1>{" "}
+                </h1>{' '}
               </div>
               <div className="xl:w-96 h-1/5   mb-56 lg:w-96 md:w-full md:flex lg:h-96 md:h-0  md:ml-10 sm:flex sm:justify-between sm:w-full sm:ml-10  sm:h-10 max-[639px]:flex max-[639px]:mb-16 max-[639px]:w-full max-[371px]:mb-28 ">
                 <div className="tish  w-full flex  flex-wrap justify-center items-center  lg:w-96  md:w-72  sm:w-72 sm:h-1/5 max-[639px]:w-1/2 max-[639px]:flex">
                   <div className=" w-full  h-96 md:h-36 lg:h-96   sm:h-52 max-[639px]:w-[90%] max-[639px]:h-28  ">
-                    {"fixdesk" in detailDesk && detailDesk.fixdesk === null ? (
+                    {'fixdesk' in detailDesk && detailDesk.fixdesk === null ? (
                       <div className="table_flex_fix flex flex-wrap justify-center w-full h-full text-center">
                         <div className="bg-slate-500 h-1/2 flex items-center justify-center w-full">
                           <h1 className="w-full mb-6 mt-[5px]  h-1 text-2xl font-bold text-white  uppercase ">
-                            <em>{"label" in detailDesk && detailDesk.label}</em>
-                          </h1>{" "}
+                            <em>{'label' in detailDesk && detailDesk.label}</em>
+                          </h1>{' '}
                         </div>
                         <div className="h-[5px] bg-orange-400 w-full"></div>
                         <div className="h-1/2 flex items-center justify-center w-full bg-green-300">
                           <h3 className="uppercase text-4xl font-bold text-slate-600 md:text-3xl md:font-medium max-[639px]:text-lg">
-                            {"type" in detailDesk && detailDesk.type
+                            {'type' in detailDesk && detailDesk.type
                               ? `${detailDesk.type} desk`
-                              : ""}
+                              : ''}
                           </h3>
                         </div>
                         <div className="Fixdesk_request_body text-xl flex flex-col justify-center items-center  w-full max-[446px]:text-lg max-[402px]:text-sm">
@@ -116,7 +115,7 @@ export default function DeskDetails() {
                             onClick={() => fixdeskRequest()}
                           >
                             Fixdesk
-                          </button>{" "}
+                          </button>{' '}
                         </div>
                       </div>
                     ) : (
@@ -135,11 +134,11 @@ export default function DeskDetails() {
                       </div>
                     )}
                   </div>
-                </div>{" "}
+                </div>{' '}
               </div>
               <div className="reservation_table w-[50%] mt-7 flex flex-wrap gap-y-10  mb-16 lg:mt-0 lg:w-[50%] md:w-[90%] sm:w-[90%] max-[639px]:w-[95%] max-[639px]:gap-y-0 max-[639px]:mb-7 ">
-                {" "}
-                {"fixdesk" in detailDesk && detailDesk.fixdesk !== null ? (
+                {' '}
+                {'fixdesk' in detailDesk && detailDesk.fixdesk !== null ? (
                   <ConvertTimeFixDesk detailDesk={detailDesk} />
                 ) : (
                   <div className="reservation_already_done flex flex-wrap w-auto  h-auto max-[639px]:mb-2 md:w-full sm:w-full max-[509px]:w-full">
@@ -159,17 +158,17 @@ export default function DeskDetails() {
                               .slice(-2);
                             // Get the last two digits of the yearStart
                             const monthStart: string = (
-                              "0" +
+                              '0' +
                               (dateObject.getMonth() + 1)
                             ).slice(-2);
                             // Months are zero-indexed
                             const dayStart: string = (
-                              "0" + dateObject.getDate()
+                              '0' + dateObject.getDate()
                             ).slice(-2);
 
                             // Months are zero-indexed
                             const dayEnd: string = (
-                              "0" + dateObjectEnd.getDate()
+                              '0' + dateObjectEnd.getDate()
                             ).slice(-2);
                             // Extracting year, month, and day - END
                             const yearEnd: string = dateObjectEnd
@@ -177,7 +176,7 @@ export default function DeskDetails() {
                               .toString()
                               .slice(-2); // Get the last two digits of the yearStart
                             const monthEnd: string = (
-                              "0" +
+                              '0' +
                               (dateObjectEnd.getMonth() + 1)
                             ).slice(-2);
 
@@ -219,7 +218,7 @@ export default function DeskDetails() {
                     <input
                       type="date"
                       data-date-format="dd mm yyy"
-                      {...register("formattedDateTimeStart")}
+                      {...register('formattedDateTimeStart')}
                       placeholder="dd-mm-yyyy"
                       className="w-[100%]  placeholder:text-center text-center h-10 bg-[#DCE8EB] placeholder:text-black placeholder:font-thin"
                     />
@@ -232,7 +231,7 @@ export default function DeskDetails() {
                     <input
                       type="date"
                       data-date-format="DD MM YYYY"
-                      {...register("formattedDateTimeEnd")}
+                      {...register('formattedDateTimeEnd')}
                       placeholder="dd-mm-yyyy"
                       className="w-[100%] placeholder:text-center text-center placeholder:text-black placeholder:font-thin h-10  bg-[#DCE8EB]"
                     />
@@ -242,7 +241,7 @@ export default function DeskDetails() {
                     className=" bg-slate-700 text-white w-[30%]  max-[480px]:w-full h-10 font-bold max-[280px]:w-full "
                   >
                     Reservieren
-                  </button>{" "}
+                  </button>{' '}
                 </form>
               </div>
             </div>
