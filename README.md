@@ -9,7 +9,20 @@ ___  ____ ____ _  _    ___  ____ ____ _  _ _ _  _ ____    ____ _   _ ____ ___ __
 
 ## Coding School Wörthersee WS2023/24 - Challenge 3
 
-Register your self, or use admin signature: admin1@csaw.at - pw4admin
+
+## API documentation
+
+Swagger API  Docu: https://deskbooking.dev.webundsoehne.com/api/docs/#/ 
+
+
+
+## Registration 
+
+1.Register your self,
+2.Use admin signature: admin1@csaw.at - pw4admin
+
+
+
 
 ## Beschreibung
 
@@ -18,6 +31,9 @@ Räumen gebucht werden können. Diese WebApp ermöglicht es dem Admin-User Büro
 und Arbeitsplätze anzulegen. Arbeitsplätze sind als FixDesk oder FlexDesk eingestuft.
 FixDesks sind einem bestimmten User zugewiesen und können nicht von anderen BenutzerInnen gebucht werden.
 FlexDesks sind für jeden buchbar und maximal 5 Arbeitstage, nicht aber über ein Wochenende buchbar.
+
+
+
 
 ## Installation
 
