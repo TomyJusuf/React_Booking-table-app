@@ -13,12 +13,12 @@ ___  ____ ____ _  _    ___  ____ ____ _  _ _ _  _ ____    ____ _   _ ____ ___ __
 ## API documentation
 
 Swagger API  Docu: https://deskbooking.dev.webundsoehne.com/api/docs/#/ 
-
+API url: https://deskbooking.dev.webundsoehne.com/api/docs-json
 
 
 ## Registration 
 
-1.Register your self,
+1.Register your self
 2.Use admin signature: admin1@csaw.at - pw4admin
 
 
