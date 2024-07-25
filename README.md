@@ -37,24 +37,7 @@ FlexDesks sind für jeden buchbar und maximal 5 Arbeitstage, nicht aber über ei
 
 
 
-## Installation
 
-```
-run VSCode in project directory: ./Code/
-open terminal in VSCode and enter following command:
-npm install
-
-wait until required packages were successfully installed.
-modify settings here if needed: ./Code/src/constants/Global.tsx
-
-then enter following command:
-npm run dev
-
-open webbrowser
-url: http://localhost:5173/
-
-please note: the given port could be different to yours
-```
 
 ## Tech-Stack
 
@@ -71,9 +54,7 @@ sweetalert
 
 ---
 
-## Support
 
-Contact us via Gitlab in case of support.
 
 ## Team
 
