@@ -1,72 +1,71 @@
-import Navbar from "./Navbar";
-import { useEffect, useState } from "react";
-import { useBookingDelete, useBookingGetUser } from "../hooks/useBooking";
-import { fixDeskRequestGetById } from "../hooks/useFixdestRequests";
-import { useFixdeskRequestDelete } from "../hooks/useFixdestRequests";
-import React from "react";
+import Navbar from './Navbar'
+import { useEffect, useState } from 'react'
+import { useBookingDelete, useBookingGetUser } from '../hooks/useBooking'
+import { fixDeskRequestGetById } from '../hooks/useFixdestRequests'
+import { useFixdeskRequestDelete } from '../hooks/useFixdestRequests'
 type Detail = {
-  bookedAt: string;
-  dateStart: string;
-  dateEnd: string;
+  bookedAt: string
+  dateStart: string
+  dateEnd: string
   desk: {
-    label: string;
-    type: string;
-    equipment: string[];
-  };
+    label: string
+    type: string
+    equipment: string[]
+  }
   user: {
-    department: string;
-    firstname: string;
-    lastname: string;
-  };
-  id: string;
-};
+    department: string
+    firstname: string
+    lastname: string
+  }
+  id: string
+}
 
 export default function Booking_Storno_Bestatigt() {
   // State to store User ID
-  const [userData, setUserData] = useState<Detail[]>([]);
-  const [userFixDeskData, setUserFixdeskData] = useState([]);
+  const [userData, setUserData] = useState<Detail[]>([])
+  const [userFixDeskData, setUserFixdeskData] = useState([])
 
-  const { mutate: bookingDelete } = useBookingDelete();
-  const { mutate: fixdeskDelete } = useFixdeskRequestDelete();
+  const { mutate: bookingDelete } = useBookingDelete()
+  const { mutate: fixdeskDelete } = useFixdeskRequestDelete()
 
   const handleClick = async (id: string) => {
     try {
       bookingDelete(id, {
         onSuccess: async () => {
-          const updateData = await useBookingGetUser();
-          setUserData(updateData);
+          const updateData = await useBookingGetUser()
+          setUserData(updateData)
         },
-      });
+      })
     } catch (error) {}
-  };
+  }
 
   const handleClickFixDeskDelete = async (id: string) => {
     try {
-      await fixdeskDelete(id);
+      await fixdeskDelete(id)
     } catch (error) {}
-  };
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await useBookingGetUser();
-        const response2 = await fixDeskRequestGetById();
+        const response = await useBookingGetUser()
+        const response2 = await fixDeskRequestGetById()
         if (response === undefined) {
-          return false;
+          return false
         } else {
-          setUserData(response);
+          setUserData(response)
         }
-        setUserFixdeskData(response2);
+        setUserFixdeskData(response2)
       } catch (error) {}
-    };
+    }
 
     // Call the fetchData function
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <>
-      <Navbar />{" "}
+      <Navbar />{' '}
       <div className="md:bg-slate-100  flex-row justify-start  flex-wrap xl:max-w-[70%] xl:min-w-[1200px] lg:w-[90%] md:w-[90%] mx-auto min-h-[90vh]  rounded-3xl   max-[639px]:rounded-none max-[639px]:mt-[-50px] sm:rounded-none md:rounded-3xl sm:mt-[-36px] max-[639px]:h-[100%]  sm:bg-slate-100  md:h-auto sm:h-auto sm:top-6 md:top-20 relative max-[639px]:top-36">
         {/* title */}
         <div className="w-[90%] mx-auto  h-20  sm:mt-16 md:mt-9 lg:mt-16 max-[639px]:pt-6 md:pt-6 sm:pt-8 ">
@@ -80,31 +79,31 @@ export default function Booking_Storno_Bestatigt() {
           {userData &&
             // Check if userData is not null or undefined
             userData.map((info) => {
-              const { dateStart, dateEnd, desk, id } = info;
-              const dateObject = new Date(dateStart);
-              const dateObjectEnd = new Date(dateEnd);
+              const { dateStart, dateEnd, desk, id } = info
+              const dateObject = new Date(dateStart)
+              const dateObjectEnd = new Date(dateEnd)
               // Extracting year, month, and day - START
-              const yearStart = dateObject.getFullYear().toString().slice(-2);
+              const yearStart = dateObject.getFullYear().toString().slice(-2)
               // Get the last two digits of the yearStart
               const monthStart: string = (
-                "0" +
+                '0' +
                 (dateObject.getMonth() + 1)
-              ).slice(-2);
+              ).slice(-2)
               // Months are zero-indexed
-              const dayStart: string = ("0" + dateObject.getDate()).slice(-2);
+              const dayStart: string = ('0' + dateObject.getDate()).slice(-2)
 
               // Months are zero-indexed
-              const dayEnd: string = ("0" + dateObjectEnd.getDate()).slice(-2);
+              const dayEnd: string = ('0' + dateObjectEnd.getDate()).slice(-2)
               // Extracting year, month, and day - END
               const yearEnd: string = dateObjectEnd
                 .getFullYear()
                 .toString()
-                .slice(-2); // Get the last two digits of the yearStart
+                .slice(-2) // Get the last two digits of the yearStart
 
               const monthEnd: string = (
-                "0" +
+                '0' +
                 (dateObjectEnd.getMonth() + 1)
-              ).slice(-2);
+              ).slice(-2)
 
               return (
                 <div
@@ -131,14 +130,14 @@ export default function Booking_Storno_Bestatigt() {
                             <li key={index} className="ml-5 text-xl">
                               {item}
                             </li>
-                          );
+                          )
                         })}
                       </ul>
                     </div>
                     <div className="infoTimeSection md:flex md:flex-nowrap md:justify-evenly md:w-auto md:ml-2  items-center sm:w-full sm:m-0 sm:flex sm:flex-wrap max-[639px]:w-full max-[639px]:flex max-[639px]:flex-wrap max-[639px]:m-0  max-[359px]:m-0">
                       <div className="w-1/3 text-sm sm:w-1/2 max-[639px]:w-1/2  ">
                         <h1 className="max-[639px]:ml-3 sm:ml-2">
-                          Reservieren von:{" "}
+                          Reservieren von:{' '}
                           <span className="font-bold">
                             <em>
                               {dayStart}/{monthStart}/{yearStart}
@@ -148,12 +147,12 @@ export default function Booking_Storno_Bestatigt() {
                       </div>
                       <div className="w-[35%] text-sm flex sm:w-1/2 max-[639px]:w-1/2">
                         <h1>
-                          Reservieren bis:{" "}
+                          Reservieren bis:{' '}
                           <span className="font-bold">
                             <em>
-                              {" "}
+                              {' '}
                               {dayEnd}/{monthEnd}/{yearEnd}
-                            </em>{" "}
+                            </em>{' '}
                           </span>
                         </h1>
                       </div>
@@ -169,7 +168,7 @@ export default function Booking_Storno_Bestatigt() {
                   </div>
                   <div className="bg-slate-400 w-full h-1 mt-5"></div>
                 </div>
-              );
+              )
             })}
         </div>
         {/* USER FIX */}
@@ -177,31 +176,31 @@ export default function Booking_Storno_Bestatigt() {
           {userFixDeskData &&
             // Check if userData is not null or undefined
             userFixDeskData.map((info: string | object | any) => {
-              const { desk, id, status, user } = info;
-              const dateObject = new Date(user.updatedAt);
+              const { desk, id, status, user } = info
+              const dateObject = new Date(user.updatedAt)
 
-              const dayStart: string = ("0" + dateObject.getDate()).slice(-2);
-              const yearStart = dateObject.getFullYear().toString().slice(-2);
+              const dayStart: string = ('0' + dateObject.getDate()).slice(-2)
+              const yearStart = dateObject.getFullYear().toString().slice(-2)
               const monthStart: string = (
-                "0" +
+                '0' +
                 (dateObject.getMonth() + 1)
-              ).slice(-2);
+              ).slice(-2)
 
               const formDate: () => string = () => {
-                const dateObject = new Date(user.updatedAt);
-                const day: string = ("0" + dateObject.getDate()).slice(-2);
+                const dateObject = new Date(user.updatedAt)
+                const day: string = ('0' + dateObject.getDate()).slice(-2)
 
-                const year: number = dateObject.getFullYear();
+                const year: number = dateObject.getFullYear()
                 const newDateObject: string | number | Date = new Date(
                   dateObject
-                );
-                newDateObject.setMonth(dateObject.getMonth() + 3);
-                const newMonth = ("0" + (newDateObject.getMonth() + 1)).slice(
+                )
+                newDateObject.setMonth(dateObject.getMonth() + 3)
+                const newMonth = ('0' + (newDateObject.getMonth() + 1)).slice(
                   -2
-                );
+                )
                 // Returning the formatted date as a string
-                return `${day}/${newMonth}/${year}`;
-              };
+                return `${day}/${newMonth}/${year}`
+              }
               return (
                 <div
                   key={id}
@@ -220,17 +219,17 @@ export default function Booking_Storno_Bestatigt() {
                     <div className="equipment w-auto ml-5  h-[78%] flex flex-wrap  items-start">
                       <div className="flex justify-between w-full text-2xl font-normal">
                         <h1>Equipment</h1>
-                        {status === "notreviewed" && (
+                        {status === 'notreviewed' && (
                           <h1 className="px-2 text-lg uppercase bg-orange-400">
                             {status}
                           </h1>
-                        )}{" "}
-                        {status === "approved" && (
+                        )}{' '}
+                        {status === 'approved' && (
                           <h1 className="px-2 text-lg uppercase bg-green-400">
                             {status}
                           </h1>
                         )}
-                        {status === "rejected" && (
+                        {status === 'rejected' && (
                           <h1 className="px-2 text-lg uppercase bg-red-400">
                             {status}
                           </h1>
@@ -242,18 +241,18 @@ export default function Booking_Storno_Bestatigt() {
                             <li className="ml-5 text-xl" key={index}>
                               {item}
                             </li>
-                          );
+                          )
                         })}
                       </ul>
                       <h1 className="md:text-sm sm:text-xs ml-5 text-sm">
                         Sie erhalten eine separate Bestätigung auf Ihre Office
                         Email Adresse.
                       </h1>
-                    </div>{" "}
+                    </div>{' '}
                     <div className="infoTimeSection md:flex md:flex-nowrap md:justify-evenly md:w-auto md:ml-2  items-center sm:w-full sm:m-0 sm:flex sm:flex-wrap max-[639px]:w-full max-[639px]:flex max-[639px]:flex-wrap max-[639px]:m-0  max-[359px]:m-0">
                       <div className="w-1/3 text-sm sm:w-1/2 max-[639px]:w-1/2  ">
                         <h1 className="max-[639px]:ml-3 sm:ml-2">
-                          Reservieren von:{" "}
+                          Reservieren von:{' '}
                           <span className="font-bold">
                             <em>
                               {dayStart}/{monthStart}/{yearStart}
@@ -263,9 +262,9 @@ export default function Booking_Storno_Bestatigt() {
                       </div>
                       <div className="w-[35%] text-sm flex sm:w-1/2 max-[639px]:w-1/2">
                         <h1>
-                          Reservieren bis:{" "}
+                          Reservieren bis:{' '}
                           <span className="font-bold">
-                            <em>{formDate()}</em>{" "}
+                            <em>{formDate()}</em>{' '}
                           </span>
                         </h1>
                       </div>
@@ -281,10 +280,10 @@ export default function Booking_Storno_Bestatigt() {
                   </div>
                   <div className="bg-slate-400 w-full h-1 mt-5"></div>
                 </div>
-              );
+              )
             })}
         </div>
       </div>
     </>
-  );
+  )
 }

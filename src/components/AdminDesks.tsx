@@ -1,24 +1,23 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import { getAllOffices } from "../hooks/useOffices";
-import { usePostDesk } from "../hooks/useAdminDesks";
-import React from "react";
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import Navbar from './Navbar'
+import { getAllOffices } from '../hooks/useOffices'
+import { usePostDesk } from '../hooks/useAdminDesks'
 
 type NewDesk = {
-  equipment: string[];
-  label: string;
-  office: string;
-};
+  equipment: string[]
+  label: string
+  office: string
+}
 
-type EquipmentValues = string[];
+type EquipmentValues = string[]
 
 export default function AdminDesks() {
-  const { register, handleSubmit } = useForm<NewDesk>();
-  const [deskData, setDeskData] = useState<NewDesk[]>([]);
-  const [equipmentValues, setEquipmentValues] = useState<EquipmentValues>([""]);
-  const [allOffices, setAllOffices] = useState([]);
-  const { mutate } = usePostDesk();
+  const { register, handleSubmit } = useForm<NewDesk>()
+  const [deskData, setDeskData] = useState<NewDesk[]>([])
+  const [equipmentValues, setEquipmentValues] = useState<EquipmentValues>([''])
+  const [allOffices, setAllOffices] = useState([])
+  const { mutate } = usePostDesk()
 
   const onSubmit: SubmitHandler<NewDesk> = async (data) => {
     try {
@@ -26,35 +25,35 @@ export default function AdminDesks() {
         equipment: equipmentValues,
         label: data.label,
         office: data.office,
-      };
-      setDeskData([newDesk]);
-      mutate(newDesk);
-      setEquipmentValues([""]);
+      }
+      setDeskData([newDesk])
+      mutate(newDesk)
+      setEquipmentValues([''])
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error)
     }
-  };
+  }
 
   const handleAddEquipment = () => {
-    setEquipmentValues([...equipmentValues, ""]);
-  };
+    setEquipmentValues([...equipmentValues, ''])
+  }
 
   const handleEquipmentChange = (index: number, value: string) => {
-    const updatedEquipmentValues = [...equipmentValues];
-    updatedEquipmentValues[index] = value;
-    setEquipmentValues(updatedEquipmentValues);
-  };
+    const updatedEquipmentValues = [...equipmentValues]
+    updatedEquipmentValues[index] = value
+    setEquipmentValues(updatedEquipmentValues)
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseAllOffice = await getAllOffices();
-        setAllOffices(responseAllOffice);
+        const responseAllOffice = await getAllOffices()
+        setAllOffices(responseAllOffice)
       } catch (error: any) {
-        throw new Error(error);
+        throw new Error(error)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   return (
     <>
@@ -64,7 +63,7 @@ export default function AdminDesks() {
           <div className="bg-white  h-full flex-col flex-wrap justify-start max-w-[1350px] mx-auto rounded-3xl pt-16 md:w-[90%] sm:w-[80%] max-[639px]:w-[90%] max-[455px]:h-[100%] max-[455px]:bg-[#DCE8EB]  max-[408px]:justify-center top-96">
             <div className="w-full  justify-center font-bold text-5xl flex-row  flex items-center   max-[639px]:text-3xl">
               Desk hinzufügen
-            </div>{" "}
+            </div>{' '}
             <div className="flex w-[80%] mx-auto h-auto  justify-center lg:gap-x-28 mt-[56px] md:w-[80%] md:gap-x-12 sm:gap-x-10 max-[639px]:gap-x-5 max-[639px]:justify-start max-[639px]:w-[90%] max-[455px]:flex-wrap max-[455px]:justify-center  mb-16">
               <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -78,7 +77,7 @@ export default function AdminDesks() {
                   type="text"
                   id="deskNumber"
                   className="w-96 py-3 my-2 border border-black pl-2 md:w-80 sm:w-60 sm:py-2 max-[639px]:w-60 max-[455px]:w-96 max-[455px]:mx-auto max-[408px]:w-full"
-                  {...register("label")}
+                  {...register('label')}
                 />
 
                 <br />
@@ -88,7 +87,7 @@ export default function AdminDesks() {
                 <br />
                 <select
                   id="office"
-                  {...register("office")}
+                  {...register('office')}
                   className="w-96 py-3 my-2 border border-black placeholder:bg-white bg-white md:w-80 sm:w-60 sm:py-3 max-[639px]:w-60 max-[455px]:w-96 max-[408px]:w-full "
                 >
                   {allOffices.map((office: any) => {
@@ -96,7 +95,7 @@ export default function AdminDesks() {
                       <option key={office.id} value={office.id}>
                         {office.name}
                       </option>
-                    );
+                    )
                   })}
                 </select>
 
@@ -126,7 +125,7 @@ export default function AdminDesks() {
                     >
                       <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
                     </svg>
-                  </button>{" "}
+                  </button>{' '}
                 </div>
                 <br />
 
@@ -151,10 +150,10 @@ export default function AdminDesks() {
                               {equipment}
                             </div>
                           </div>
-                        );
+                        )
                       })}
                     </div>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -162,5 +161,5 @@ export default function AdminDesks() {
         </div>
       </div>
     </>
-  );
+  )
 }

@@ -1,25 +1,24 @@
-import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import { useEffect, useState } from 'react';
-import React from 'react';
+import { Link } from 'react-router-dom'
+import Navbar from './Navbar'
+import { useEffect, useState } from 'react'
 
 interface Favorite {
-  id: string;
+  id: string
   desk: {
-    label: string;
-    equipment: string[];
+    label: string
+    equipment: string[]
     office: {
-      name: string;
-    };
-  };
+      name: string
+    }
+  }
 }
 
 const CustomModal = ({
   message,
   onClose,
 }: {
-  message: string;
-  onClose: () => void;
+  message: string
+  onClose: () => void
 }) => (
   <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-gray-700 bg-opacity-50 border-gray-300 shadow-2xl">
     <div className="max-w-md p-8 bg-white rounded-lg">
@@ -32,29 +31,29 @@ const CustomModal = ({
       </button>
     </div>
   </div>
-);
+)
 
 export default function Favorites() {
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
+  const [favorites, setFavorites] = useState<Favorite[]>([])
+  const [showModal, setShowModal] = useState(false)
+  const [modalMessage, setModalMessage] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const jwtToken = localStorage.getItem('jwtToken');
-        const baseUrl = 'https://deskbooking.dev.webundsoehne.com';
+        const jwtToken = localStorage.getItem('jwtToken')
+        const baseUrl = 'https://deskbooking.dev.webundsoehne.com'
         const profileResponse = await fetch(`${baseUrl}/api/users/profile`, {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
-        });
+        })
         if (!profileResponse.ok) {
-          throw new Error('Failed to fetch user profile');
+          throw new Error('Failed to fetch user profile')
         }
 
-        const userProfile = await profileResponse.json();
-        const userId = userProfile.id;
+        const userProfile = await profileResponse.json()
+        const userId = userProfile.id
 
         const favoritesResponse = await fetch(
           `${baseUrl}/api/favourites/user/${userId}`,
@@ -63,12 +62,12 @@ export default function Favorites() {
               Authorization: `Bearer ${jwtToken}`,
             },
           }
-        );
+        )
         if (!favoritesResponse.ok) {
-          throw new Error('Failed to fetch user favorites');
+          throw new Error('Failed to fetch user favorites')
         }
 
-        const favoritesData = await favoritesResponse.json();
+        const favoritesData = await favoritesResponse.json()
 
         const extractedFavorites = favoritesData.map((favorite: any) => ({
           id: favorite.id,
@@ -79,46 +78,46 @@ export default function Favorites() {
               name: favorite.desk.office.name,
             },
           },
-        }));
+        }))
 
-        setFavorites(extractedFavorites);
+        setFavorites(extractedFavorites)
       } catch (error) {
-        setModalMessage('Fehler: erhalte keine Daten');
-        setShowModal(true);
+        setModalMessage('Fehler: erhalte keine Daten')
+        setShowModal(true)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   const handleRemoveFavorite = async (favoriteId: string) => {
     try {
-      const jwtToken = localStorage.getItem('jwtToken');
-      const baseUrl = 'https://deskbooking.dev.webundsoehne.com';
+      const jwtToken = localStorage.getItem('jwtToken')
+      const baseUrl = 'https://deskbooking.dev.webundsoehne.com'
 
       const response = await fetch(`${baseUrl}/api/favourites/${favoriteId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
-      });
+      })
 
       if (response.ok) {
         setFavorites((prevFavorites) =>
           prevFavorites.filter((favorite) => favorite.id !== favoriteId)
-        );
-        setModalMessage('Favorit erfolgreich entfernt');
-        setShowModal(true);
+        )
+        setModalMessage('Favorit erfolgreich entfernt')
+        setShowModal(true)
       } else {
-        alert('Fehler beim Entfernen des Favoriten');
-        setModalMessage('Fehler beim Entfernen des Favoriten');
-        setShowModal(true);
+        alert('Fehler beim Entfernen des Favoriten')
+        setModalMessage('Fehler beim Entfernen des Favoriten')
+        setShowModal(true)
       }
     } catch (error) {
-      alert('An error occurred');
-      setModalMessage('Ein Fehler ist aufgetreten');
-      setShowModal(true);
+      alert('An error occurred')
+      setModalMessage('Ein Fehler ist aufgetreten')
+      setShowModal(true)
     }
-  };
+  }
 
   return (
     <div className="flex flex-col items-center w-screen h-screen min-h-screen text-center bg-[#DCE8EB]">
@@ -171,5 +170,5 @@ export default function Favorites() {
         </ul>
       </div>
     </div>
-  );
+  )
 }
